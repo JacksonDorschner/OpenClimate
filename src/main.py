@@ -1,7 +1,6 @@
 import datetime as dt
 import requests
 
-key = "14f455d757ac8f7a8a47318fcad5bcd5"
 lat = "-22.6127615"
 lon = "167.4874067"
 
