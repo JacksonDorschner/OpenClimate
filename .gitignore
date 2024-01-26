@@ -1,2 +1,4 @@
 ./apikey.txt
 apikey.txt
+api_key
+*.pyc
