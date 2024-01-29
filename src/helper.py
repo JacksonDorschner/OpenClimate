@@ -17,10 +17,11 @@ class storage:
         """
         f = open('values.json')
         data = json.load(f)
-        
-        for key, value in data([now]):
-            print(value)
+
+        env_control = tuple(dict(data[now]).values())
+
         f.close()
+        return env_control
     
     def write(now):
         f = open('values.json')

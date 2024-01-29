@@ -2,11 +2,11 @@
     "sr": "5:38",
     "ss": "19:22",
     "0": {
-        "Humididty": 58,
-        "Temp": 80
+        "Temp": 80,
+        "Humididty": 58
     },
     "1": {
-        "Humididty": 62,
-        "Temp": 83
+        "Temp": 83,
+        "Humididty": 62
     }
 }

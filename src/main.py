@@ -1,21 +1,15 @@
+from helper   import kelvinConvert, storage
 from schedule import repeat, every
-from helper import kelvinConvert, storage
 import datetime as dt
 import requests
-import schedule
-import asyncio
 import json
 import time
-import os
 
 #API
 BASE_URL = "https://api.openweathermap.org/data/2.5/weather?lat=-22.6127615&lon=167.4874067&appid="
 API_KEY = open('api_key', 'r').read()
 url = BASE_URL + API_KEY
 response = requests.get(url).json()
-
-#storage
-current_parrams = ''
 
 #Data Values:
 temp_kelvin  = response['main']['temp'    ]
@@ -30,10 +24,10 @@ now = str(dt.datetime.now().hour)
 if __name__ == '__main__':
     def init():
         return
-    storage.read("0")
+    storage.read(now)
     
 '''
-@repeat(every().minute.at(':30')) Temp: %(temp_fahrenheit)F, %(temp_celcius)C \n Humidity: %(humidity) \n Sunrise: %(sunrise_time) \n Sunset: %(sunset_time)
+@repeat(every().minute.at(':30'))
 while True:
     schedule.run_pending()
     time.sleep(1)'''
