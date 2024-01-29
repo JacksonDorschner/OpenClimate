@@ -1,4 +1,3 @@
-from main import temp_celcius, temp_fahrenheit, humidity, sunrise_time, sunset_time, json
 import json
 
 def kelvinConvert(kelvin: float) -> tuple:
@@ -7,7 +6,7 @@ def kelvinConvert(kelvin: float) -> tuple:
     return celcius, fahrenheit
 
 class storage:
-    def read(now) -> tuple:
+    def read(now):
         """returns tuple for setting current values for the system to maintain
 
         Args:
@@ -19,12 +18,14 @@ class storage:
         f = open('values.json')
         data = json.load(f)
         
-        for i in data['']:
-            return
+        for key, value in data([now]):
+            print(value)
+        f.close()
     
     def write(now):
         f = open('values.json')
         data = json.load(f)
+        f.close()
         
     def api_fetch() -> str:
-        print(f'Temp: {temp_fahrenheit}F, {temp_celcius}C \n Humidity: {humidity}% \n Sunrise: {sunrise_time} \n Sunset: {sunset_time}')
+            return

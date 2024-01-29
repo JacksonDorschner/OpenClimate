@@ -1,5 +1,5 @@
 from schedule import repeat, every
-from helper import kelvinConvert
+from helper import kelvinConvert, storage
 import datetime as dt
 import requests
 import schedule
@@ -17,20 +17,20 @@ response = requests.get(url).json()
 #storage
 current_parrams = ''
 
-#helping bits
-temp_celcius, temp_fahrenheit = kelvinConvert(temp_kelvin)
-now = str(dt.datetime.now().hour)
-
 #Data Values:
 temp_kelvin  = response['main']['temp'    ]
 humidity     = response['main']['humidity']
 sunrise_time = response['sys' ]['sunrise' ] + response['timezone']
 sunset_time  = response['sys' ]['sunset'  ] + response['timezone']
 
+#helping bits
+temp_celcius, temp_fahrenheit = kelvinConvert(temp_kelvin)
+now = str(dt.datetime.now().hour)
+
 if __name__ == '__main__':
     def init():
         return
-
+    storage.read("0")
     
 '''
 @repeat(every().minute.at(':30')) Temp: %(temp_fahrenheit)F, %(temp_celcius)C \n Humidity: %(humidity) \n Sunrise: %(sunrise_time) \n Sunset: %(sunset_time)
