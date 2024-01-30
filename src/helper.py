@@ -1,7 +1,11 @@
+import datetime 
 import requests
 import json
+import time
 
 utc_Offset = 19
+#C = 0, F = 1
+unit = 1
 
 def kelvinConvert(kelvin: float) -> tuple:
     celcius = kelvin - 273.15
@@ -32,9 +36,12 @@ class storage:
         futureTime = int(now) + utc_Offset
         if futureTime > 24:
             futureTime = futureTime - 24
-        self.api_fetch()
+            
+        api = storage.api_fetch()
 
-        
+        #TODO : make this work!!! PLEASE!!!
+        data[str(futureTime)]["Temp"] = api[0]
+        data[str(futureTime)]["Humidity"] = api[1]
         f.close()
         
     def api_fetch() -> tuple:
@@ -43,7 +50,7 @@ class storage:
         API_KEY = open('api_key', 'r').read()
         url = BASE_URL + API_KEY
         response = requests.get(url).json()
-
+        
         #Data Values:
         temp_kelvin  = response['main']['temp'    ]
         humidity     = response['main']['humidity']
@@ -52,4 +59,8 @@ class storage:
 
         #helping bits
         temp_celcius, temp_fahrenheit = kelvinConvert(temp_kelvin)
+        temp_fahrenheit = round(temp_fahrenheit)
+        temp_celcius = round(temp_celcius)
+        
+        print(f"api pulled from with data T: {temp_fahrenheit}, H: {humidity}")
         return temp_fahrenheit, humidity

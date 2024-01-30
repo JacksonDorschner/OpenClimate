@@ -3,10 +3,14 @@
     "ss": "19:22",
     "0": {
         "Temp": 80,
-        "Humididty": 58
+        "Humidity": 58
     },
     "1": {
         "Temp": 83,
-        "Humididty": 62
+        "Humidity": 62
+    },
+    "13": {
+        "Temp": 83,
+        "Humidity": 62
     }
 }

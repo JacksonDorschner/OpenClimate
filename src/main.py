@@ -1,4 +1,4 @@
-from helper   import kelvinConvert, storage
+from helper   import storage
 from schedule import repeat, every
 import datetime as dt
 import json
@@ -8,10 +8,7 @@ import time
 now = str(dt.datetime.now().hour)
 
 if __name__ == '__main__':
-    def init():
-        return
-    #storage.read(now)
-    storage.write(now)
+    storage.write(now, storage)
     
 '''
 @repeat(every().minute.at(':30'))
