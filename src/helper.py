@@ -8,9 +8,9 @@ utc_Offset = 19
 unit = 1
 
 def kelvinConvert(kelvin: float) -> tuple:
-    celcius = kelvin - 273.15
-    fahrenheit = celcius * (9/5) + 32
-    return celcius, fahrenheit
+    celsius = kelvin - 273.15
+    fahrenheit = celsius * (9/5) + 32
+    return celsius, fahrenheit
 
 class storage:
     def read(now: int) -> tuple:
@@ -31,17 +31,17 @@ class storage:
         return env_control
     
     def write(now: int, self):
-        f = open('values.json')
-        data = json.load(f)
+        with open('values.json') as f:
+            data = json.load(f)
         futureTime = int(now) + utc_Offset
         if futureTime > 24:
             futureTime = futureTime - 24
-            
         api = storage.api_fetch()
 
         #TODO : make this work!!! PLEASE!!!
-        data[str(futureTime)]["Temp"] = api[0]
-        data[str(futureTime)]["Humidity"] = api[1]
+        T = data[str(futureTime)]["Temp"] = api[0]
+        H = data[str(futureTime)]["Humidity"] = api[1]
+        json.dump(T, data)
         f.close()
         
     def api_fetch() -> tuple:
@@ -58,9 +58,9 @@ class storage:
         sunset_time  = response['sys' ]['sunset'  ] + response['timezone']
 
         #helping bits
-        temp_celcius, temp_fahrenheit = kelvinConvert(temp_kelvin)
+        temp_celsius, temp_fahrenheit = kelvinConvert(temp_kelvin)
         temp_fahrenheit = round(temp_fahrenheit)
-        temp_celcius = round(temp_celcius)
+        temp_celsius = round(temp_celsius)
         
         print(f"api pulled from with data T: {temp_fahrenheit}, H: {humidity}")
         return temp_fahrenheit, humidity
