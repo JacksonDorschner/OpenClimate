@@ -9,6 +9,7 @@ now = str(dt.datetime.now().hour)
 
 if __name__ == '__main__':
     storage.write(now, storage)
+    storage.api_fetch()
     
 '''
 @repeat(every().minute.at(':30'))
