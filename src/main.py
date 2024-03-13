@@ -1,15 +1,12 @@
-from helper   import storage
 from schedule import repeat, every
+from helpers import storage
 import datetime as dt
-import json
-import time
 
 #helping bits
 now = str(dt.datetime.now().hour)
 
 if __name__ == '__main__':
     storage.write(now, storage)
-    storage.api_fetch()
     
 '''
 @repeat(every().minute.at(':30'))

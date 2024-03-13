@@ -1,11 +1,10 @@
-import datetime 
+from typing import Tuple
 import requests
 import json
-import time
 
-utc_Offset = 19
 #C = 0, F = 1
 unit = 1
+utc_Offset = 19
 
 def kelvinConvert(kelvin: float) -> tuple:
     celsius = kelvin - 273.15
@@ -29,22 +28,26 @@ class storage:
 
         f.close()
         return env_control
-    
+
+    #FIXME wont write
     def write(now: int, self):
         with open('values.json') as f:
             data = json.load(f)
         futureTime = int(now) + utc_Offset
         if futureTime > 24:
             futureTime = futureTime - 24
-        api = storage.api_fetch()
-
-        #TODO : make this work!!! PLEASE!!!
-        T = data[str(futureTime)]["Temp"] = api[0]
-        H = data[str(futureTime)]["Humidity"] = api[1]
-        json.dump(T, data)
+        futureTime = str(futureTime)
+        api = self.api_fetch()
+        
+        #self.api_fetch()[0]
+        temp = data[futureTime]["Temp"][1]
+        humidity = data[futureTime]["Humidity"][12]
+        with open('values.json', 'w') as f:
+            json.dump(temp, f)
+            json.dump(humidity, f)
         f.close()
         
-    def api_fetch() -> tuple:
+    def api_fetch() -> tuple[int, int]:
         #API
         BASE_URL = "https://api.openweathermap.org/data/2.5/weather?lat=-22.6127615&lon=167.4874067&appid="
         API_KEY = open('api_key', 'r').read()
@@ -52,10 +55,10 @@ class storage:
         response = requests.get(url).json()
         
         #Data Values:
-        temp_kelvin  = response['main']['temp'    ]
+        temp_kelvin  = response['main']['temp']
         humidity     = response['main']['humidity']
-        sunrise_time = response['sys' ]['sunrise' ] + response['timezone']
-        sunset_time  = response['sys' ]['sunset'  ] + response['timezone']
+        sunrise_time = response['sys']['sunrise'] + response['timezone']
+        sunset_time  = response['sys']['sunset'] + response['timezone']
 
         #helping bits
         temp_celsius, temp_fahrenheit = kelvinConvert(temp_kelvin)
